@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সহায়তা করুন - এটিএম ফাউন্ডেশন</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* ====================================== */
+        /* ১. বেস এবং কালার স্টাইলস */
+        /* ====================================== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* ====================================== */
+        /* ২. হেডার/নেভিগেশন স্টাইল */
+        /* ====================================== */
+        .main-header {
+            background-color: #007bff; /* স্কাই ব্লু */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); 
+            position: relative; /* মোবাইল মেনুর জন্য যোগ করা হলো */
+        }
+        
+        /* লোগো এবং নেভিগেশন স্টাইল (আগের পেজগুলির অনুরূপ) */
+        .header-logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-text { 
+            color: white; 
+            font-size: 24px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .header-logo-container a {
+             text-decoration: none;
+        }
+        #logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%; 
+            background-color: white; 
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        #logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ডেস্কটপ নেভিগেশন */
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 0; 
+            display: inline-block;
+        }
+        .nav-links li a:hover {
+            color: #e9ecef; 
+        }
+        
+        /* বর্তমান পেজ হাইলাইট: "সহায়তা করুন" */
+        .nav-links li .donate-btn-link { 
+             color: #ffc107 !important; /* উজ্জ্বল হলুদ */
+             background-color: black; 
+             padding: 8px 15px;
+             border-radius: 5px;
+             text-transform: uppercase;
+             font-weight: 600; 
+             pointer-events: none;
+        }
+        .donate-btn-link:hover {
+            background-color: black;
+            color: #ffc107 !important;
+        }
+        
+        /* --- নতুন CSS: মোবাইল মেনু টগল বাটন স্টাইল --- */
+        #menu-toggle {
+            display: none; 
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001; 
+        }
+
+        /* ====================================== */
+        /* ৩. কন্টেন্ট এবং কার্ড স্টাইল */
+        /* ====================================== */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #007bff; 
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 32px;
+        }
+        .intro-text {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* অনুদান কার্ডের গ্রিড স্টাইল */
+        .donation-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px;
+        }
+        
+        /* অনুদান কার্ড স্টাইল */
+        .method-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .method-card h3 {
+            font-size: 24px;
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            color: black; 
+        }
+        
+        .method-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #007bff; 
+        }
+
+        .account-details {
+            text-align: left;
+            margin-top: 20px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .account-details strong {
+            display: inline-block;
+            width: 100px; 
+            color: #007bff;
+        }
+        
+        /* গুরুত্বপূর্ণ নোট স্টাইল */
+        .note {
+            background-color: #fff3cd; 
+            color: #856404; 
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 50px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* কপি বাটন স্টাইল */
+        .copy-btn {
+            background-color: #28a745; 
+            color: white;
+            border: none;
+            padding: 5px 10px; 
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 13px; 
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+        
+        /* ====================================== */
+        /* ৪. ফুটার স্টাইল */
+        /* ====================================== */
+        footer {
+            background-color: #343a40; 
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        /* ====================================== */
+        /* ৫. মোবাইল রেসপনসিভনেস (Media Queries) */
+        /* ====================================== */
+        @media (max-width: 768px) {
+            
+            /* মোবাইল মেনু টগল আইকন দেখানো */
+            #menu-toggle {
+                display: block; 
+            }
+
+            /* নেভিগেশন লিংকস লুকানো */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; 
+                left: 0;
+                background-color: #007bff;
+                box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            /* জাভাস্ক্রিপ্ট 'active' ক্লাস যোগ করলে মেনু দেখা যাবে */
+            .nav-links.active {
+                display: flex; 
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 10px 0;
+            }
+            
+            /* অনুদান কার্ড গ্রিডকে মোবাইলে ১ কলাম */
+            .donation-methods {
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+
+            /* কন্টেন্ট প্যাডিং ঠিক করা */
+            .container {
+                padding: 0 15px;
+                margin: 30px auto;
+            }
+            
+            /* কপি বাটনকে টেক্সটের নিচে নামিয়ে দেওয়া যাতে জায়গা হয় */
+            .account-details div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .copy-btn {
+                margin-left: 0;
+                flex-shrink: 0;
+            }
+            .account-details strong {
+                width: auto;
+            }
+        } /* @media (max-width: 768px) এর বন্ধনী */
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo-container">
+            <div id="logo-placeholder">
+                <img src="logo.png" alt="ATM Foundation Logo"> 
+            </div>
+            <a href="index.html">
+                <div class="logo-text">এটিএম ফাউন্ডেশন</div> 
+            </a>
+        </div>
+        
+        <button id="menu-toggle" aria-label="Toggle Navigation">
+            &#9776; 
+        </button>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">হোম</a></li> 
+                <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+                <li><a href="prokolpoo.html">প্রকল্পসমূহ</a></li>
+                <li><a href="jojajog.html">যোগাযোগ</a></li>
+                <li class="donate-btn"><a href="sohayota.html" class="donate-btn-link">সহায়তা করুন</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>💞 আমাদের সহায়তায় এগিয়ে আসুন</h2>
+        <p class="intro-text">
+            আপনার দেওয়া প্রতিটি অনুদান আমাদের দরিদ্র ও অসহায় মানুষের জন্য আরও বেশি কাজ করতে উৎসাহিত করে। আপনার পছন্দের যেকোনো মাধ্যমে আপনি আপনার অনুদান পাঠাতে পারেন।
+        </p>
+
+        <div class="donation-methods">
+            
+            <div class="method-card">
+                <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>বিকাশ (Bkash)</h3>
+                
+                <div class="account-details">
+                    <div><strong>ধরণ:</strong> ব্যক্তিগত (Personal)</div>
+                    
+                    <div>
+                        <strong>নম্বর:</strong> <span id="bKashNumber">01775645313</span>
+                        <button class="copy-btn" onclick="copyToClipboard('bKashNumber')">কপি করুন</button>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 14px; color: #777;">* অনুগ্রহ করে সেন্ড মানি করুন।</p>
+                </div>
+            </div>
+
+            <div class="method-card">
+                <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h3>নগদ (Nagad)</h3>
+                
+                <div class="account-details">
+                    <div><strong>ধরণ:</strong> ব্যক্তিগত (Personal)</div>
+                    
+                    <div>
+                        <strong>নম্বর:</strong> <span id="nagadNumber">01775645313</span>
+                        <button class="copy-btn" onclick="copyToClipboard('nagadNumber')">কপি করুন</button>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 14px; color: #777;">* অনুগ্রহ করে সেন্ড মানি করুন।</p>
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="icon"><i class="fas fa-university"></i></div>
+                <h3>ব্যাংক অ্যাকাউন্ট</h3>
+                
+                <div class="account-details">
+                    <div><strong>ব্যাংকের নাম:</strong> ইসলামি ব্যাংক পিএলসি</div>
+                    <div><strong>অ্যাকাউন্ট নাম:</strong> এটিএম ফাউন্ডেশন</div>
+                    <div>
+                        <strong>অ্যাকাউন্ট নং:</strong> <span id="bankNumber">XXXX XXXX 123456</span>
+                        <button class="copy-btn" onclick="copyToClipboard('bankNumber')">কপি করুন</button>
+                    </div>
+                    <div><strong>শাখা:</strong> শায়েস্তাগঞ্জ শাখা</div>
+                    <div><strong>সুইফট কোড:</strong> ABCLBDDH</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="note">
+            ⚠️ **গুরুত্বপূর্ণ নোট:** অনুদান পাঠানোর পর অনুগ্রহ করে <a href="jogajog.html" style="color: #856404; font-weight: 600;">যোগাযোগ ফর্মের</a> মাধ্যমে আপনার নাম, যোগাযোগের নম্বর এবং প্রেরিত অর্থের পরিমাণ জানিয়ে দিন, যাতে আমরা আপনাকে রশিদ পাঠাতে পারি।
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 ATM Foundation. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+    
+    <script>
+        // কপি করার জন্য জাভাস্ক্রিপ্ট ফাংশন
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId).innerText;
+            
+            navigator.clipboard.writeText(copyText).then(() => {
+                alert("নম্বরটি সফলভাবে কপি করা হয়েছে: " + copyText);
+            }).catch(err => {
+                console.error('কপি করতে ব্যর্থ:', err);
+                alert("কপি করতে সমস্যা হয়েছে, দয়া করে ম্যানুয়ালি কপি করুন।");
+            });
+        }
+        
+        // মোবাইল মেনুর জন্য জাভাস্ক্রিপ্ট
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

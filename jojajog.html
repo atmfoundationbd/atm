@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - এটিএম ফাউন্ডেশন</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ====================================== */
+        /* ১. বেস এবং কালার স্টাইলস */
+        /* ====================================== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* ====================================== */
+        /* ২. হেডার/নেভিগেশন স্টাইল */
+        /* ====================================== */
+        .main-header {
+            background-color: #007bff; /* স্কাই ব্লু */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); 
+            position: relative; 
+        }
+        
+        /* লোগো কন্টেইনার স্টাইল */
+        .header-logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-text { 
+            color: white; 
+            font-size: 24px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .header-logo-container a {
+             text-decoration: none;
+        }
+
+        /* লোগো প্লেসহোল্ডার স্টাইল (গোলাকার জায়গা) */
+        #logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%; 
+            background-color: white; 
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        #logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ডেস্কটপ নেভিগেশন স্টাইল */
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 0; 
+            display: inline-block;
+        }
+        .nav-links li a:hover {
+            color: #e9ecef; 
+        }
+        
+        /* বর্তমান পেজ হাইলাইট: "যোগাযোগ" */
+        .nav-links li .current-page-link {
+             color: #ffc107 !important; /* উজ্জ্বল হলুদ */
+             pointer-events: none;
+        }
+        
+        /* সহায়তা করুন বাটন স্টাইল */
+        .donate-btn a {
+            background-color: #e0a800; 
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 600; 
+            transition: background-color 0.3s;
+        }
+        .donate-btn a:hover {
+            background-color: #007bff;
+            color: white !important; 
+        }
+
+        /* মোবাইল মেনু টগল বাটন স্টাইল */
+        #menu-toggle {
+            display: none; 
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002; 
+        }
+
+        /* ====================================== */
+        /* ৩. কন্টেন্ট এবং ফর্ম স্টাইল */
+        /* ====================================== */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #007bff; 
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* যোগাযোগ ফর্ম এবং তথ্য স্টাইল */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px;
+            margin-top: 30px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* যোগাযোগের তথ্যের জন্য স্টাইল */
+        .contact-info h3 {
+            color: black;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .info-item {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: flex; /* Flexbox ব্যবহার করা হলো */
+            align-items: flex-start;
+        }
+        
+        /* আইকন স্টাইল */
+        .info-item i {
+            font-size: 18px;
+            color: #007bff;
+            margin-right: 10px;
+            margin-top: 4px; /* টেক্সটের সাথে সামঞ্জস্য রাখতে */
+            width: 20px; /* ফিক্সড উইডথ */
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .info-text-content {
+            flex-grow: 1;
+        }
+        
+        .info-item strong {
+            color: #007bff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .info-item a {
+             color: #333;
+             text-decoration: none;
+             transition: color 0.3s;
+        }
+        .info-item a:hover {
+            color: #007bff;
+        }
+
+        /* ফর্ম স্টাইল */
+        .contact-form {
+            padding: 20px;
+            border-left: 1px solid #ddd;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background-color: black; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #007bff;
+        }
+        
+        /* গুগল ম্যাপ স্টাইল */
+        .map-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .map-section iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
+        /* ====================================== */
+        /* ৪. ফুটার স্টাইল */
+        /* ====================================== */
+        footer {
+            background-color: #343a40; 
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        /* ====================================== */
+        /* ৫. মোবাইল রেসপনসিভনেস (Media Queries) */
+        /* ====================================== */
+        @media (max-width: 768px) {
+            
+            /* মোবাইল মেনু টগল আইকন দেখানো */
+            #menu-toggle {
+                display: block; 
+            }
+
+            /* নেভিগেশন লিংকস লুকানো */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; 
+                left: 0;
+                background-color: #007bff;
+                box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            /* জাভাস্ক্রিপ্ট 'active' ক্লাস যোগ করলে মেনু দেখা যাবে */
+            .nav-links.active {
+                display: flex; 
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 10px 0;
+            }
+            .donate-btn a {
+                 padding: 6px 12px;
+                 font-size: 14px;
+            }
+            
+            /* যোগাযোগ গ্রিডকে মোবাইলে উপরে নিচে সাজানো */
+            .contact-grid {
+                grid-template-columns: 1fr; 
+            }
+            /* ফর্ম থেকে বামদিকের বর্ডার সরানো */
+            .contact-form {
+                 border-left: none; 
+                 padding: 10px 0; 
+            }
+            
+            .contact-info {
+                padding-bottom: 20px; 
+            }
+            .map-section iframe {
+                height: 300px; /* মোবাইলের জন্য ম্যাপের উচ্চতা কমানো */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo-container">
+            <div id="logo-placeholder">
+                <img src="logo.png" alt="ATM Foundation Logo"> 
+            </div>
+            <a href="index.html">
+                <div class="logo-text">এটিএম ফাউন্ডেশন</div> 
+            </a>
+        </div>
+        
+        <button id="menu-toggle" aria-label="Toggle Navigation">
+            &#9776; 
+        </button>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">হোম</a></li> 
+                <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+                <li><a href="prokolpoo.html">প্রকল্পসমূহ</a></li>
+                <li><a href="jojajog.html" class="current-page-link">যোগাযোগ</a></li>
+                <li class="donate-btn"><a href="sohayota.html">সহায়তা করুন</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>আমাদের সাথে যোগাযোগ করুন</h2>
+        <p style="text-align: center; margin-bottom: 30px;">
+            আমাদের কাজ সম্পর্কে জানতে, কোনো প্রশ্ন করতে বা আমাদের প্রকল্পে সহায়তা করতে সরাসরি যোগাযোগ করুন।
+        </p>
+
+        <div class="contact-grid">
+            
+            <div class="contact-info">
+                <h3>যোগাযোগের বিস্তারিত</h3>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i> <div class="info-text-content">
+                        <strong>ঠিকানা</strong>
+                        <p>
+                            এটিএম ফাউন্ডেশন, প্রধান কার্যালয়<br>
+                           - নোয়াপাড়া,সায়হামনগর-৩৩৩৩, মাধবপুর,
+                            হবিগঞ্জ, সিলেট, বাংলাদেশ
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i> <div class="info-text-content">
+                        <strong>ইমেইল</strong>
+                        <a href="mailto:info@atmfoundation.org">atmfoundation11@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i> <div class="info-text-content">
+                        <strong>ফোন ও WhatsApp</strong>
+                        <a href="tel:+8801775645313">০১৭৭৫৬৪৫৩১৩</a> 
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-clock"></i> <div class="info-text-content">
+                        <strong>কার্যকাল</strong>
+                        <p>২৪/৭</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>আমাদের কাছে বার্তা পাঠান</h3>
+                <form action="https://formspree.io/f/mwpgawkk" method="POST"> 
+                    <div class="form-group">
+                        <label for="name">আপনার নাম:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">আপনার ইমেইল:</label>
+                        <input type="email" id="email" name="_replyto" required> 
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">বিষয়:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">আপনার বার্তা:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">বার্তা পাঠান</button>
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="map-section">
+            <h3 style="color: #007bff; text-align: center; margin-bottom: 15px;">ম্যাপে আমাদের অবস্থান</h3>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115160.72517861916!2d91.30602058428801!3d24.16782530184281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3752e505a40a233b%3A0x67319c5b29c1d06b!2sMadhabpur!5e0!3m2!1sen!2sbd!4v1703664800000!5m2!1sen!2sbd" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="এটিএম ফাউন্ডেশনের ম্যাপের অবস্থান"
+            ></iframe>
+        </div>
+        
+    </div>
+
+    <footer>
+        <p>©️ 2025 ATM Foundation. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (!menuToggle || !navLinks) {
+                return; 
+            }
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

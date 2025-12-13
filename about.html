@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সম্পর্কে - ATM Foundation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ====================================== */
+        /* ১. বেস এবং কালার স্টাইলস */
+        /* ====================================== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* ====================================== */
+        /* ২. হেডার/নেভিগেশন স্টাইল */
+        /* ====================================== */
+        .main-header {
+            background-color: #007bff; /* স্কাই ব্লু */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+            position: relative; /* মোবাইল মেনুর জন্য যোগ করা হলো */
+        }
+        
+        .header-logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text { 
+            color: white; 
+            font-size: 24px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .header-logo-container a {
+             text-decoration: none;
+        }
+
+        #logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: white;
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        #logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ডেস্কটপ মেনু */
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links li a:hover {
+            color: #e9ecef; 
+        }
+        
+        /* বর্তমান পেজ হাইলাইট: "আমাদের সম্পর্কে" */
+        .nav-links li .current-page-link { 
+            color: #ffc107 !important; /* উজ্জ্বল হলুদ */
+        }
+        
+        /* সহায়তা করুন বাটন স্টাইল */
+        .donate-btn a {
+            background-color: #e0a800;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+        .donate-btn a:hover {
+            background-color: #333;
+            color: white !important; 
+        }
+
+        /* --- নতুন CSS: মোবাইল মেনু টগল বাটন স্টাইল --- */
+        #menu-toggle {
+            display: none; /* ডেস্কটপে লুকানো থাকবে */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001; 
+        }
+
+        /* ====================================== */
+        /* ৩. কন্টেন্ট সেকশন স্টাইল */
+        /* ====================================== */
+        .content-section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .about-page-section h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .vision-mission-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .vm-box {
+            flex: 1;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #007bff;
+        }
+        .vm-box h3 {
+            color: black;
+            margin-top: 0;
+            font-weight: 600;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .core-values {
+            background-color: #e9f5ff;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .core-values h3 {
+            color: #007bff; 
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .core-values ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .core-values li {
+            background-color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            border: 1px solid #007bff;
+            font-weight: 500;
+        }
+
+        /* ====================================== */
+        /* ৪. ফুটার স্টাইল */
+        /* ====================================== */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        /* ====================================== */
+        /* ৫. মোবাইল রেসপনসিভনেস (Media Queries) */
+        /* ====================================== */
+        @media (max-width: 768px) {
+            
+            /* মোবাইল মেনু টগল আইকন দেখানো */
+            #menu-toggle {
+                display: block; 
+            }
+
+            /* নেভিগেশন লিংকস লুকানো */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; 
+                left: 0;
+                background-color: #007bff;
+                box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            /* জাভাস্ক্রিপ্ট 'active' ক্লাস যোগ করলে মেনু দেখা যাবে */
+            .nav-links.active {
+                display: flex; 
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 10px 0;
+            }
+            .donate-btn a {
+                 padding: 6px 12px;
+                 font-size: 14px;
+            }
+            
+            /* ভিশন-মিশন বক্সকে মোবাইলে উপরে নিচে সাজানো */
+            .vision-mission-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .content-section {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo-container">
+            <div id="logo-placeholder">
+                <img src="logo.png" alt="ATM Foundation Logo"> 
+            </div>
+            <a href="index.html">
+                 <div class="logo-text">এটিএম ফাউন্ডেশন</div> 
+            </a>
+        </div>
+        
+        <button id="menu-toggle" aria-label="Toggle Navigation">
+            &#9776; 
+        </button>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">হোম</a></li>
+                <li><a href="about.html" class="current-page-link">আমাদের সম্পর্কে</a></li> 
+                <li><a href="prokolpoo.html">প্রকল্পসমূহ</a></li>
+                <li><a href="jojajog.html">যোগাযোগ</a></li>
+                <li class="donate-btn"><a href="sohayota.html">সহায়তা করুন</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about" class="content-section about-page-section">
+        <h2>আমাদের সম্পর্কে</h2>
+        <div class="about-container">
+            
+            <p style="font-size: 1.1em; margin-bottom: 40px; text-align: center;">ATM Foundation সমাজের প্রতি দায়বদ্ধতা থেকে প্রতিষ্ঠিত একটি অলাভজনক সংস্থা, যার প্রধান লক্ষ্য হলো সমাজের সকল স্তরের মানুষের জীবনযাত্রার মান উন্নয়ন করা।</p>
+
+            <div class="vision-mission-container">
+                <div class="vm-box vision-box">
+                    <h3>ভিশন (Vision)</h3>
+                    <p>একটি এমন সমাজ প্রতিষ্ঠা করা যেখানে প্রতিটি মানুষ মৌলিক অধিকার নিয়ে সম্মান ও মর্যাদার সাথে জীবনযাপন করতে পারে এবং যেখানে মানবিকতা প্রাধান্য পায়।</p>
+                </div>
+                
+                <div class="vm-box mission-box">
+                    <h3>মিশন (Mission)</h3>
+                    <p>শিক্ষা, স্বাস্থ্য, এবং জীবিকা নির্বাহের সুযোগ প্রদানের মাধ্যমে সমাজের পিছিয়ে পড়া জনগোষ্ঠীকে ক্ষমতায়ন করা এবং তাদের স্বনির্ভরতা নিশ্চিত করা।</p>
+                </div>
+            </div>
+            
+            <div class="core-values">
+                <h3>আমাদের মূল মূল্যবোধ</h3>
+                <ul>
+                    <li>স্বচ্ছতা (Transparency)</li>
+                    <li>জবাবদিহিতা (Accountability)</li>
+                    <li>সহানুভূতি (Compassion)</li>
+                    <li>সমন্বয় (Collaboration)</li>
+                    <li>স্থায়িত্ব (Sustainability)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2025 ATM Foundation. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            // টগল বাটনে ক্লিক ইভেন্ট লিসেনার যোগ করা
+            menuToggle.addEventListener('click', function() {
+                // 'active' ক্লাস যোগ বা অপসারণ করা হবে
+                navLinks.classList.toggle('active');
+            });
+            
+            // মেনুর যেকোনো লিঙ্কে ক্লিক করলে মেনু বন্ধ করা
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

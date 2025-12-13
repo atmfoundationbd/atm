@@ -1,0 +1,154 @@
+/* ১. গ্লোবাল স্টাইল ও ফন্ট */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+}
+
+/* ২. মূল রংগুলোর ভ্যারিয়েবল */
+:root {
+    --primary-color: #35A7FF; /* ফাউন্ডেশন নীল */
+    --text-color: #1A1A1A; /* টেক্সট কালার */
+    --background-color: #FFFFFF;
+}
+
+/* ৩. নেভিগেশন বার স্টাইল */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: var(--background-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--primary-color); /* লোগো কালার */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: var(--primary-color); /* হোভার কালার */
+}
+
+/* ৪. ডোনেট বাটন স্টাইল */
+.donate-btn a {
+    background-color: var(--primary-color); /* নীল বাটন */
+    color: var(--background-color) !important;
+    padding: 8px 18px;
+    border-radius: 5px;
+    margin-left: 20px;
+    font-weight: 600 !important;
+}
+
+.donate-btn a:hover {
+    background-color: #278ADB;
+}
+
+/* ৫. হিরো সেকশন স্টাইল */
+.hero-section {
+    background-color: #F8F8F8;
+    color: var(--text-color);
+    text-align: center;
+    padding: 100px 5%;
+}
+
+.hero-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--primary-color); /* প্রধান শিরোনাম কালার */
+}
+
+/* ৬. প্রাথমিক বাটন স্টাইল */
+.primary-button {
+    display: inline-block;
+    background-color: var(--primary-color); /* নীল বাটন */
+    color: white !important;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+/* ৭. অন্যান্য সেকশনের সাধারণ স্টাইল */
+.content-section {
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.content-section h2 {
+    font-size: 2em;
+    color: var(--primary-color); /* সেকশন শিরোনাম কালার */
+    margin-bottom: 30px;
+}
+
+/* ৮. ফুটার স্টাইল */
+footer {
+    background-color: var(--text-color); /* কালো ফুটার */
+    color: #CCCCCC;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+/* --- গ্যালারি সেকশন স্টাইল --- */
+
+.gallery-section {
+    background-color: #F8F8F8;
+}
+
+.gallery-grid {
+    display: grid;
+    /* ৩ কলামে ছবিগুলো দেখানোর জন্য গ্রিড তৈরি করা হলো */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.gallery-item {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    height: 300px; /* ছবির জন্য একটি নির্দিষ্ট উচ্চতা নির্ধারণ করা হলো */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: #AAAAAA;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ছবির অনুপাত ঠিক রেখে পুরোপুরি ডিভের মধ্যে দেখানোর জন্য */
+}
+
+.gallery-more-btn {
+    margin-top: 20px;
+}
