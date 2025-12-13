@@ -3,120 +3,640 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>এটিএম ফাউন্ডেশন - নির্মাণাধীন</title>
+    <title>হোম - এটিএম ফাউন্ডেশন</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* ====================================== */
+        /* ১. বেস এবং কালার স্টাইলস */
+        /* ====================================== */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            background-color: #f4f4f4; /* হালকা ধূসর ব্যাকগ্রাউন্ড */
+            background-color: #f4f7f9; 
+            color: #333; 
         }
         
-        .header {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: skyblue;
-        }
-
-        .main-content {
-            flex-grow: 1; /* ফুটার নীচে রাখতে সাহায্য করে */
+        /* ====================================== */
+        /* ** নতুন CSS: Preloader স্টাইল (হ্যান্ডশেক + টেক্সট অ্যানিমেশন) ** */
+        /* ====================================== */
+        #preloader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); 
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 50px 20px;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
 
-        .main-content h1 {
-            font-size: 4em;
-            color: #333;
-            margin-bottom: 0.1em;
-        }
-
-        .main-content h2 {
-            font-size: 2em;
-            color: #555;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .status {
-            font-size: 1.2em;
-            color: #888;
-            margin-top: 30px;
-            padding: 10px 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-
-        /* ফুটার সেকশনের স্টাইল */
-        .footer {
-            width: 100%;
-            padding: 20px 0 10px 0; /* উপরে, ডানে, নিচে, বামে প্যাডিং */
+        .loader-content {
             text-align: center;
-            margin-top: auto; /* কন্টেন্টকে উপরের দিকে ঠেলে দেয় */
+            position: relative;
         }
 
-        /* অনুভূমিক রেখার স্টাইল */
-        .footer hr {
+        /* হ্যান্ডশেক কন্টেইনার */
+        .handshake-container {
+            width: 120px;
+            height: 60px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+        
+        /* হাতের সাধারণ স্টাইল */
+        .hand {
+            width: 45px;
+            height: 45px;
+            border-radius: 5px;
+            position: absolute;
+            top: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* বাম হাত */
+        .hand-left {
+            background-color: #007bff; /* নীল */
+            left: 0;
+            transform: rotate(30deg); 
+            /* অ্যানিমেশন: একত্রিত হওয়া এবং থেমে যাওয়া (২ সেকেন্ডে একবার) */
+            animation: handshake-left 2s ease-in-out infinite alternate;
+        }
+
+        /* ডান হাত */
+        .hand-right {
+            background-color: #ffc107; /* হলুদ */
+            right: 0;
+            transform: rotate(-30deg);
+            /* অ্যানিমেশন: একত্রিত হওয়া এবং থেমে যাওয়া (২ সেকেন্ডে একবার) */
+            animation: handshake-right 2s ease-in-out infinite alternate;
+        }
+
+        /* বাম হাতের অ্যানিমেশন (আসা এবং ধাক্কা খাওয়া) */
+        @keyframes handshake-left {
+            0% { 
+                transform: translateX(-40px) rotate(30deg); 
+            }
+            100% { 
+                transform: translateX(25px) rotate(15deg); 
+            }
+        }
+
+        /* ডান হাতের অ্যানিমেশন (আসা এবং ধাক্কা খাওয়া) */
+        @keyframes handshake-right {
+            0% { 
+                transform: translateX(40px) rotate(-30deg); 
+            }
+            100% { 
+                transform: translateX(-25px) rotate(-15deg); 
+            }
+        }
+        
+        /* নতুন লেখা অ্যানিমেশন স্টাইল */
+        .loading-message {
+            font-size: 50px;
+            font-weight: 700;
+            color: #007bff;
+            margin: 0 0 5px 0;
+            opacity: 0; /* প্রাথমিকভাবে অদৃশ্য */
+            animation: fadeIn 0.5s ease-out 1.5s forwards; /* 1.5 সেকেন্ড পর শুরু */
+        }
+
+        .sub-message {
+            font-size: 30px;
+            color: #555;
+            font-style: italic;
+            opacity: 0; /* প্রাথমিকভাবে অদৃশ্য */
+            animation: fadeIn 0.5s ease-out 2.0s forwards; /* 2.0 সেকেন্ড পর শুরু */
+        }
+        
+        /* সাধারণ ফেড ইন অ্যানিমেশন */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* নতুন ক্লাস: অন্য পেজ থেকে এলে তাৎক্ষণিক লুকিয়ে ফেলার জন্য */
+        .preloader-immediate-hide {
+             display: none !important;
+        }
+        
+        /* ====================================== */
+        /* ২. হেডার/নেভিগেশন স্টাইল (অপরিবর্তিত) */
+        /* ====================================== */
+        .main-header {
+            background-color: #007bff; /* স্কাই ব্লু */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); 
+            position: relative; 
+        }
+        
+        /* লোগো কন্টেইনার স্টাইল */
+        .header-logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-text { 
+            color: white; 
+            font-size: 24px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .header-logo-container a {
+             text-decoration: none;
+        }
+
+        /* লোগো প্লেসহোল্ডার স্টাইল */
+        #logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%; 
+            background-color: white; 
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        #logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ডেস্কটপ নেভিগেশন স্টাইল */
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 0; 
+            display: inline-block;
+        }
+        .nav-links li a:hover {
+            color: #e9ecef; 
+        }
+        
+        /* বর্তমান পেজ হাইলাইট: "হোম" */
+        .nav-links li .current-page-link {
+             color: #ffc107 !important; 
+             pointer-events: none;
+        }
+        
+        /* সহায়তা করুন বাটন স্টাইল */
+        .donate-btn a {
+            background-color: #e0a800; 
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 600; 
+            transition: background-color 0.3s;
+        }
+        .donate-btn a:hover {
+            background-color: #007bff;
+            color: white !important; 
+        }
+        
+        /* মোবাইল মেনু টগল বাটন স্টাইল */
+        #menu-toggle {
+            display: none; 
+            background: none;
             border: none;
-            height: 3px;
-            background-color: skyblue; /* স্কাই ব্লু রঙ */
-            width: 80%; /* চওড়া করতে সাহায্য করে */
-            margin: 0 auto 10px auto; /* মাঝখানে রাখা ও নিচের টেক্সট থেকে দূরত্ব */
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002; 
+        }
+        
+        /* ====================================== */
+        /* ৩. রিয়েল-টাইম বার স্টাইল (অপরিবর্তিত) */
+        /* ====================================== */
+        .time-date-bar {
+            background-color: #e9ecef; /* হালকা ধূসর */
+            color: #495057; 
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #dee2e6;
         }
 
-        .sky-blue {
-            color: skyblue;
+        #real-time-display {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px; 
+        }
+        
+        #real-time-display strong {
+            color: #007bff; 
+            font-weight: 600;
+        }
+        /* ====================================== */
+        /* ৪. হিরো সেকশন স্টাইল (অপরিবর্তিত) */
+        /* ====================================== */
+        .hero-section {
+            background: url('hero_background.jpg') no-repeat center center/cover; /* আপনার ব্যাকগ্রাউন্ড ইমেজ ঠিক করুন */
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333; 
+            position: relative;
+        }
+        
+        /* ওভারলে */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.7); /* সাদা ওভারলে (70% স্বচ্ছ) */
+            z-index: 1;
+        }
+        .hero-content {
+            z-index: 2;
+        }
+        
+        /* বাটন কন্টেইনার যুক্ত করা হয়েছে */
+        .button-container {
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; /* দুটি বাটনের মধ্যে ব্যবধান */
+            flex-wrap: wrap; /* মোবাইলে যাতে নিচে নেমে যায় */
         }
 
-        /* ফন্টের আকার ছোট ডিভাইসের জন্য সামঞ্জস্য করা */
-        @media (max-width: 600px) {
-            .main-content h1 {
-                font-size: 2.5em;
+
+        .hero-title-large {
+            font-size: 80px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+            color: #007bff; /* স্কাই ব্লু */
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #333; /* বর্ণনা মূলক লেখা কালো */
+        }
+        
+        .hero-content h1 p { 
+             font-size: 30px; 
+             margin-bottom: 20px; 
+             margin-top: 5px;
+             color: #007bff; /* স্কাই ব্লু */
+        }
+        
+        /* বাটন স্টাইল */
+        .primary-button {
+            background-color: #ffc107; /* উজ্জ্বল হলুদ */
+            color: #333;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        .primary-button:hover {
+            background-color: #e0a800; /* গাঢ় হলুদ */
+        }
+
+        /* নতুন বাটন স্টাইল (Secondary Button) */
+        .secondary-button {
+            background-color: #007bff; /* নীল */
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        .secondary-button:hover {
+            background-color: #0056b3; /* গাঢ় নীল */
+        }
+        
+        /* অন্যান্য কন্টেইনার স্টাইল */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* ====================================== */
+        /* ৫. নতুন CSS: গ্যালারি সেকশন স্টাইল (অপরিবর্তিত) */
+        /* ====================================== */
+        .gallery-section {
+            padding: 30px 0;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16 / 10; 
+        }
+
+
+        /* ====================================== */
+        /* ৬. ফুটার স্টাইল (অপরিবর্তিত) */
+        /* ====================================== */
+        footer {
+            background-color: #343a40; 
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* ====================================== */
+        /* ৭. মোবাইল রেসপনসিভনেস (Media Queries) (অপরিবর্তিত) */
+        /* ====================================== */
+        @media (max-width: 768px) {
+            #menu-toggle {
+                display: block; 
             }
-            .main-content h2 {
-                font-size: 1.5em;
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; 
+                left: 0;
+                background-color: #007bff;
+                box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+                padding: 10px 0;
+                z-index: 1000;
             }
-            .header {
-                font-size: 1.2em;
+            .nav-links.active {
+                display: flex; 
             }
-            .footer hr {
-                width: 90%;
+            .nav-links li {
+                margin: 10px 0;
+                text-align: center;
             }
-            .footer p {
-                font-size: 0.8em;
+            .hero-title-large {
+                font-size: 36px;
+            }
+            .time-date-bar {
+                 font-size: 12px; 
+                 padding: 8px 10px;
+            }
+            #real-time-display {
+                gap: 10px;
+            }
+            /* মোবাইলের জন্য হিরো টেক্সট ছোট করা */
+            .hero-content h1 p { 
+                 font-size: 24px;
+            }
+            /* মোবাইলে বাটনগুলোকে উপরে নিচে আনা */
+            .button-container {
+                 flex-direction: column; 
+                 gap: 10px; 
+            }
+            .primary-button, .secondary-button {
+                 width: 80%;
+                 margin: 0 auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header sky-blue">
-        এটিএম ফাউন্ডেশন
-    </div>
 
-    <div class="main-content">
-        <h1>এটিএম ফাউন্ডেশন</h1>
-        <h2>হ্যান্ডস অফ হিউম্যানিটি</h2>
-
-        <div class="status">
-            ওয়েবসাইট নির্মাণাধীন
+    <div id="preloader-overlay">
+        <div class="loader-content">
+            <div class="handshake-container">
+                <div class="hand hand-left"></div>
+                <div class="hand hand-right"></div>
+            </div>
+            
+            <p class="loading-message">ATM Foundation</p>
+            <p class="sub-message">Hands of Humanity</p>
+            
         </div>
     </div>
+    <header class="main-header">
+        <div class="header-logo-container">
+            <div id="logo-placeholder">
+                <img src="logo.png" alt="ATM Foundation Logo"> 
+            </div>
+            <a href="index.html">
+                <div class="logo-text">এটিএম ফাউন্ডেশন</div> 
+            </a>
+        </div>
+        
+        <button id="menu-toggle" aria-label="Toggle Navigation">
+            &#9776; 
+        </button>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="current-page-link">হোম</a></li> 
+                
+                <li><a href="about.html" class="nav-link-other">আমাদের সম্পর্কে</a></li>       
+                <li><a href="prokolpoo.html" class="nav-link-other">প্রকল্পসমূহ</a></li>
+                <li><a href="jojajog.html" class="nav-link-other">যোগাযোগ</a></li>
+                <li class="donate-btn"><a href="sohayota.html" class="nav-link-other">সহায়তা করুন</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="footer">
-        <hr>
-        <p>&copy; ২০২৫ এটিএম ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।</p>
+    <div class="time-date-bar">
+        <div id="real-time-display">
+            </div>
     </div>
+    
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1><span class="hero-title-large">ATM Foundation</span><p>Hands of Humanity</p></h1>
+            <p>মানুষের কল্যাণে কাজ করা এবং স্বেচ্ছায় রক্তদান কর্মসূচি পরিচালনা করা।</p> 
+            
+            <div class="button-container">
+                <a href="prokolpoo.html" class="primary-button">আমাদের কাজ দেখুন</a> 
+                <a href="parshod.html" class="secondary-button">বর্তমান কার্যনির্বাহী পর্ষদ</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <div class="container">
+         <h2 style="color: #007bff; text-align: center; border-bottom: 3px solid #007bff; padding-bottom: 10px; margin-bottom: 30px;">আমাদের অর্জনের কিছু মুহূর্ত</h2>
+        
+         
+         <section class="gallery-section">
+             <h3 style="color: #333; text-align: center; margin-bottom: 25px;"></h3>
+             <div class="gallery-grid">
+                 
+                 <div class="gallery-item">
+                     <img src="blood.jpeg" alt="এটিএম ফাউন্ডেশনের রক্তদান কর্মসূচী"> 
+                     </div>
+                 
+                 <div class="gallery-item">
+                     <img src="school.jpeg" alt="শিক্ষামূলক সহায়তা কার্যক্রম">
+                 </div>
+                 
+                 <div class="gallery-item">
+                     <img src="gorib.jpeg" alt="শীতবস্ত্র বিতরণ">
+                 </div>
+
+                 </div>
+         </section>
+         </div>
+
+
+    <footer>
+        <p>©️ 2025 ATM Foundation. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        // জাভাস্ক্রিপ্ট: রিয়েল-টাইম সময় ও ইংরেজি তারিখ প্রদর্শনের ফাংশন
+        function updateClock() {
+            const now = new Date();
+            const displayElement = document.getElementById('real-time-display');
+            if (!displayElement) return; 
+
+            const englishOptions = { 
+                timeZone: 'Asia/Dhaka', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const englishDate = now.toLocaleDateString('en-US', englishOptions);
+
+            const timeOptions = { 
+                timeZone: 'Asia/Dhaka', 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            const realTime = now.toLocaleTimeString('en-US', timeOptions); 
+
+            displayElement.innerHTML = `
+                <span>সময় (বাংলাদেশ): <strong>${realTime}</strong></span>
+                <span>তারিখ: <strong>${englishDate}</strong></span>
+            `;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); 
+
+        // মোবাইল মেনু টগল লজিক 
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+                
+                const links = navLinks.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                        }
+                    });
+                });
+            }
+            
+            
+            /* START: Preloader JavaScript (ফিক্সড: রিলোড কাজ করবে, নেভিগেশন করবে না) */
+            const preloader = document.getElementById('preloader-overlay');
+            const sessionKey = 'isNavigatingFromHome';
+            
+            // অন্য কোনো লিঙ্ক ক্লিক করা হলে এই সেশন ফ্ল্যাগটি সেট করা হবে
+            const otherLinks = document.querySelectorAll('.nav-link-other');
+            otherLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    sessionStorage.setItem(sessionKey, 'true');
+                });
+            });
+
+            // ১. যদি অন্য কোনো পেজ থেকে নেভিগেট করে হোমে ফেরা হয়, তবে লুকান
+            if (sessionStorage.getItem(sessionKey) === 'true') {
+                if (preloader) {
+                    // দ্রুত এটি লুকানো
+                    preloader.classList.add('preloader-immediate-hide'); 
+                    preloader.remove(); 
+                }
+                // ফ্ল্যাগটি সরিয়ে ফেলা, যাতে পরের বার রিলোড করলে অ্যানিমেশন দেখায়
+                sessionStorage.removeItem(sessionKey); 
+                return; 
+            }
+
+            // ২. প্রথমবার ভিজিট বা রিলোড হলে, ৩ সেকেন্ড অ্যানিমেশন দেখান
+            let loaded = false; 
+            let minTimePassed = false; 
+
+            function checkAndHidePreloader() {
+                if (loaded && minTimePassed) {
+                    if (preloader) {
+                        preloader.classList.add('hidden');
+                        preloader.addEventListener('transitionend', function() {
+                            preloader.remove();
+                        });
+                    }
+                }
+            }
+
+            window.addEventListener('load', function() {
+                loaded = true;
+                checkAndHidePreloader();
+            });
+
+            setTimeout(function() {
+                minTimePassed = true;
+                checkAndHidePreloader();
+            }, 4000); // ৩ সেকেন্ড অপেক্ষা
+            
+            /* END: Preloader JavaScript */
+        });
+    </script>
 </body>
 </html>
